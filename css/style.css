@@ -40,7 +40,10 @@ body {
     margin: 0;
 }
 
-h4 {
+#start-stop {
+    position: absolute;
+    top: 180px;
+    font-size: 3em;
 
 }
 
