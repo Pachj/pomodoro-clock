@@ -34,9 +34,14 @@ body {
 }
 
 #clock {
-
     position: absolute;
-    top: 150px;
+    top: 125px;
+    font-size: 5em;
+    margin: 0;
+}
+
+h4 {
+
 }
 
 #progress {
