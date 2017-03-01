@@ -1,14 +1,19 @@
 /**
  * Created by Henry on 01.03.17.
  */
-let workLength = 25;
-let breakLength = 5;
+let workLength = 25; // ToDo: decide if millisecond or seconds
+let breakLength = 5; // ToDo: decide if millisecond or seconds
 
 let working = true;
 let isRunning = false;
 
+let countdown;
+let timer;
+let remainingInMilliseconds;
+let start;
+
 /*let start = new Date();
-console.log(start);*/
+ console.log(start);*/
 
 $(document).ready(function () {
     $("#work-length").children().click(function () {
@@ -24,9 +29,9 @@ $(document).ready(function () {
 });
 
 /*function stop() {
-    let end = new Date();
-    console.log(start - end);
-}*/
+ let end = new Date();
+ console.log(start - end);
+ }*/
 
 function changeWorkLength(operator) { //ToDo: add time maximum and minimum
     if (operator === "+") {
@@ -49,16 +54,10 @@ function changeBreakLength(operator) { //ToDo: add time maximum and minimum
 }
 
 function runningSwitcher() { //ToDo: clock, Timer Object?
-    let countdown;
-    let timer;
-    let remainingInMilliseconds;
-    let start;
-
     if (!isRunning) {
         isRunning = true;
         if (working) {
             start = new Date();
-            console.log(start);
             countdown = window.setTimeout(timeOver, workLength * 60 * 1000);
             timer = window.setInterval(changeProgress, (workLength * 60 * 1000) / 60);
         }
@@ -67,16 +66,17 @@ function runningSwitcher() { //ToDo: clock, Timer Object?
             timer = window.setInterval(changeProgress, (breakLength * 60 * 1000) / 60);
         }
     }
-/*    else {
+    else {
         isRunning = false;
         if (working) {
-            remainingInMilliseconds = /!*(workLength * 60 * 1000) -*!/ (Math.abs(start - new Date())); // needs to be tested
+            remainingInMilliseconds = (workLength * 60 * 1000) - (Math.abs(start - new Date()));
             window.clearTimeout(countdown);
             window.clearInterval(timer);
-            console.log((remainingInMilliseconds / 1000));
         }
+        else {
 
-    }*/
+        }
+    }
 }
 
 function timeOver() { //ToDo: change working
@@ -86,3 +86,4 @@ function timeOver() { //ToDo: change working
 function changeProgress() {
 
 }
+
