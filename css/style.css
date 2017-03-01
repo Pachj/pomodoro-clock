@@ -1,0 +1,50 @@
+html {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inconsolata', monospace;
+    font-size: 10px;
+}
+
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#action-box { /* ToDo: box size responsive*/
+    margin: auto;
+    flex-direction: column;    
+}
+
+#progress-circle {
+    width: 300px;
+    height: 300px;
+    border-radius: 200px;
+    border: 3px solid black;
+    overflow: hidden;
+}
+
+#counter-progress {
+    width: 300px;
+    height: 300px;
+}
+
+#clock {
+
+    position: absolute;
+    top: 150px;
+}
+
+#progress {
+    width: 300px;
+    height: 0;
+    background-color: aqua;
+}
+
+p {
+    display: inline-flex;
+}
