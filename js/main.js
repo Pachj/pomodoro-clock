@@ -1,13 +1,14 @@
 /**
  * Created by Henry on 01.03.17.
  */
-let workLength = 25; // ToDo: decide if millisecond or seconds
-let breakLength = 5; // ToDo: decide if millisecond or seconds
+let workLength = 25 * 60 * 1000; // in milliseconds
+let breakLength = 5 * 60 * 1000; // in milliseconds
 
 let working = true;
 let isRunning = false;
 
 let countdown;
+let progress;
 let timer;
 let remainingInMilliseconds;
 let start;
@@ -33,44 +34,49 @@ $(document).ready(function () {
  console.log(start - end);
  }*/
 
+// changes the work period length
 function changeWorkLength(operator) { //ToDo: add time maximum and minimum
     if (operator === "+") {
-        workLength++;
+        workLength += 60000;
     }
     else {
-        workLength--;
+        workLength -= 60000;
     }
-    $("#display-work").html(workLength);
+    $("#display-work").html(workLength / 1000 / 60);
 }
 
+// changes the break period length
 function changeBreakLength(operator) { //ToDo: add time maximum and minimum
     if (operator === "+") {
-        breakLength++;
+        breakLength += 60000;
     }
     else {
-        breakLength--;
+        breakLength -= 60000;
     }
-    $("#display-break").html(breakLength);
+    $("#display-break").html(breakLength / 1000 / 60);
 }
 
-function runningSwitcher() { //ToDo: clock, Timer Object?
+function runningSwitcher() { //ToDo: clock, check TimeOut/Interval time, check if remaining > 0
     if (!isRunning) {
         isRunning = true;
+        start = new Date();
         if (working) {
-            start = new Date();
-            countdown = window.setTimeout(timeOver, workLength * 60 * 1000);
-            timer = window.setInterval(changeProgress, (workLength * 60 * 1000) / 60);
+            countdown = window.setTimeout(timeOver, workLength);
+            progress = window.setInterval(changeProgress, workLength / 60);
+            timer = window.setInterval(clock, workLength / 1000);
         }
         else {
-            countdown = window.setTimeout(timeOver, breakLength * 60 * 1000);
-            timer = window.setInterval(changeProgress, (breakLength * 60 * 1000) / 60);
+            countdown = window.setTimeout(timeOver, breakLength);
+            progress = window.setInterval(changeProgress, breakLength / 60);
+            timer = window.setInterval(clock, breakLength / 1000);
         }
     }
     else {
         isRunning = false;
         if (working) {
-            remainingInMilliseconds = (workLength * 60 * 1000) - (Math.abs(start - new Date()));
+            remainingInMilliseconds = workLength - (Math.abs(start - new Date()));
             window.clearTimeout(countdown);
+            window.clearInterval(progress);
             window.clearInterval(timer);
         }
         else {
@@ -79,7 +85,7 @@ function runningSwitcher() { //ToDo: clock, Timer Object?
     }
 }
 
-function timeOver() { //ToDo: change working
+function timeOver() { //ToDo: change let working
 
 }
 
@@ -87,3 +93,6 @@ function changeProgress() {
 
 }
 
+function clock() {
+
+}

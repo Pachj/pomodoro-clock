@@ -35,7 +35,7 @@ body {
 
 #clock {
     position: absolute;
-    top: 125px;
+    top: 125px;         /*ToDo: change position to responsive*/
     font-size: 5em;
     margin: 0;
 }
