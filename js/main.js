@@ -11,14 +11,14 @@ let clock = undefined;
 let remainingTime = undefined;
 
 $(document).ready(function () {
-    $("#minutes").html(displayInitialClock());
+    displayInitialClock();
     $("#display-work").html(initialWorkLength);
     $("#display-break").html(initialBreakLength);
 
-    $("#work-length").children().click(function () {
+    $("#work-buttons").children().click(function () {
         changeWorkLength($(this).attr("value"));
     });
-    $("#break-length").children().click(function () {
+    $("#break-buttons").children().click(function () {
         changeBreakLength($(this).attr("value"));
     });
     $("#start-resume").click(function () {
@@ -31,36 +31,46 @@ $(document).ready(function () {
 
 // changes the work period length and also displays it
 function changeWorkLength(operator) {
+    let changed = false;
     if (!running) {
         if (operator === "+") {
             if (initialWorkLength < 60) {
                 initialWorkLength++;
+                changed = true;
             }
         }
         else if (operator === "-") {
             if (initialWorkLength > 1) {
                 initialWorkLength--;
+                changed = true;
             }
         }
-        displayClock();
-        $("#display-work").html(initialWorkLength);
+        if (changed) {
+            displayInitialClock();
+            $("#display-work").html(initialWorkLength);
+        }
     }
 }
 
 // changes the break period length and also displays it
 function changeBreakLength(operator) {
+    let changed = false;
     if (!running) {
         if (operator === "+") {
             if (initialBreakLength < 60) {
                 initialBreakLength++;
+                changed = true;
             }
         }
         else if (operator === "-") {
             if (initialBreakLength > 1) {
                 initialBreakLength--;
+                changed = true;
             }
         }
-        $("#display-break").html(initialBreakLength);
+        if (changed) {
+            $("#display-break").html(initialBreakLength);
+        }
     }
 }
 
@@ -139,12 +149,13 @@ function displayClock() {
     $("#minutes").html(time[1]); // display the minutes
 }
 
-// displays the clock when the site is fresh loaded
+// displays the clock when the site is fresh loaded or the user changes the work length
 function displayInitialClock() {
+    let timeToDisplay = initialWorkLength;
     if (initialWorkLength < 10) {
-        return "0" + initialWorkLength;
+        timeToDisplay = "0" + timeToDisplay;
     }
-    return initialWorkLength;
+    $("#minutes").html(timeToDisplay);
 }
 
 // resets the whole Pomodoro Clock
