@@ -35,16 +35,19 @@ body {
 
 #clock {
     position: absolute;
-    top: 125px;         /*ToDo: change position to responsive*/
+    top: 60px;         /*ToDo: change position to responsive*/
     font-size: 5em;
     margin: 0;
 }
 
-#start-stop {
+h4 {
+    display: inline-flex;
+}
+
+#start-resume {
     position: absolute;
     top: 180px;
     font-size: 3em;
-
 }
 
 #progress {

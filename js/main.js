@@ -1,20 +1,16 @@
 /**
  * Created by Henry on 01.03.17.
  */
-let workLength = 25 * 60 * 1000; // in milliseconds
-let breakLength = 5 * 60 * 1000; // in milliseconds
+//ToDo: display initial breakLength and workLength and the clock
+let initialWorkLength = 25;
+let initialBreakLength = 5;
+let remainingWorkLength = initialWorkLength * 60; // in seconds
+let remainingBreakLength = initialBreakLength * 60; // in seconds
 
 let working = true;
-let isRunning = false;
+let running = false;
 
-let countdown;
-let progress;
-let timer;
-let remainingInMilliseconds;
-let start;
-
-/*let start = new Date();
- console.log(start);*/
+let clock;
 
 $(document).ready(function () {
     $("#work-length").children().click(function () {
@@ -23,76 +19,123 @@ $(document).ready(function () {
     $("#break-length").children().click(function () {
         changeBreakLength($(this).attr("value"));
     });
-    $("#start-stop").click(function () {
+    $("#start-resume").click(function () {
         runningSwitcher();
-        /*stop();*/
-    })
+    });
 });
 
-/*function stop() {
- let end = new Date();
- console.log(start - end);
- }*/
-
 // changes the work period length
-function changeWorkLength(operator) { //ToDo: add time maximum and minimum
+function changeWorkLength(operator) { //ToDo: add time maximum and minimum, block change if running
     if (operator === "+") {
-        workLength += 60000;
+        if (initialWorkLength < 60) {
+            initialWorkLength++;
+            remainingWorkLength += 60;
+        }
     }
-    else {
-        workLength -= 60000;
+    else if (operator === "-") {
+        if (initialWorkLength > 1) {
+            initialWorkLength--;
+            remainingWorkLength -= 60;
+        }
     }
-    $("#display-work").html(workLength / 1000 / 60);
+    displayClock();
+    $("#display-work").html(initialWorkLength);
 }
 
 // changes the break period length
-function changeBreakLength(operator) { //ToDo: add time maximum and minimum
+function changeBreakLength(operator) { //ToDo: add time maximum and minimum, block change if running
     if (operator === "+") {
-        breakLength += 60000;
+        if (initialBreakLength < 60) {
+            initialBreakLength++;
+            remainingBreakLength++;
+        }
     }
-    else {
-        breakLength -= 60000;
+    else if (operator === "-") {
+        if (initialBreakLength > 1) {
+            initialBreakLength--;
+            remainingBreakLength--;
+        }
     }
-    $("#display-break").html(breakLength / 1000 / 60);
+    $("#display-break").html(initialBreakLength);
 }
 
-function runningSwitcher() { //ToDo: clock, check TimeOut/Interval time, check if remaining > 0
-    if (!isRunning) {
-        isRunning = true;
-        start = new Date();
+function runningSwitcher() {
+    if (!running) {
+        running = true;
         if (working) {
-            countdown = window.setTimeout(timeOver, workLength);
-            progress = window.setInterval(changeProgress, workLength / 60);
-            timer = window.setInterval(clock, workLength / 1000);
+            doWork();
         }
         else {
-            countdown = window.setTimeout(timeOver, breakLength);
-            progress = window.setInterval(changeProgress, breakLength / 60);
-            timer = window.setInterval(clock, breakLength / 1000);
+            doBreak();
         }
     }
     else {
-        isRunning = false;
-        if (working) {
-            remainingInMilliseconds = workLength - (Math.abs(start - new Date()));
-            window.clearTimeout(countdown);
-            window.clearInterval(progress);
-            window.clearInterval(timer);
+        running = false;
+        window.clearInterval(clock);
+        console.log("RemainingWorkLength: " + remainingWorkLength + ", RemainingBreakLength: " + remainingBreakLength);
+    }
+}
+//ToDo: doWork and doBreak in one function when I link remaining... with working
+function doWork() {
+    clock = window.setInterval(workClock, 1000);
+
+    function workClock() {
+        if (remainingWorkLength === 0) {
+            window.clearInterval(clock);
+            working = false;
+            doBreak();
         }
         else {
-
+            remainingWorkLength -= 1;
+            console.log(remainingWorkLength);
+            displayClock();
         }
     }
 }
 
-function timeOver() { //ToDo: change let working
+function doBreak() {
+    clock = window.setInterval(breakClock, 1000);
 
+    function breakClock() {
+        if (remainingBreakLength === 0) {
+            window.clearInterval(clock);
+            working = true;
+            doWork();
+        }
+        else {
+            remainingBreakLength -= 1;
+            console.log(remainingBreakLength);
+            displayClock();
+        }
+    }
 }
 
-function changeProgress() {
+function displayClock() {
+    let remainingTime;
 
-}
+    if (working) {
+        remainingTime = remainingWorkLength;
+    }
+    else {
+        remainingTime = remainingBreakLength;
+    }
 
-function clock() {
+    let minutes = Math.floor(remainingTime / 60).toString(); // minutes of the actual remaining as String
+    let seconds = (remainingTime % 60).toString(); // seconds of the actual remaining as String
 
+    if (minutes.length < 2) {
+        minutes = "0" + minutes;
+    }
+    else if (minutes.length < 1) {
+        minutes = "00";
+    }
+    $("#minutes").html(minutes); // display the minutes
+
+    if (seconds.length < 2) {
+        minutes = "0" + seconds;
+    }
+    else if (seconds.length < 1) {
+        minutes = "00";
+    }
+    $("#seconds").html(seconds); // display the seconds
 }
