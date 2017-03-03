@@ -11,7 +11,7 @@ let clock = undefined;
 let remainingTime = undefined;
 
 $(document).ready(function () {
-    $("#minutes").html(initialDisplayClock());
+    $("#minutes").html(displayInitialClock());
     $("#display-work").html(initialWorkLength);
     $("#display-break").html(initialBreakLength);
 
@@ -74,6 +74,7 @@ function runningSwitcher() {
     }
 }
 
+// runs a timer
 function run() {
     setRemainingTime();
     newClock();
@@ -81,9 +82,8 @@ function run() {
     function timer() {
 
         if (remainingTime === 0) {
-            window.clearInterval(clock);
-            setRemainingTime();
-            changeWorking();
+            window.clearInterval(clock);            
+            changePeriod();
         }
         else {
             remainingTime -= 1;
@@ -92,11 +92,22 @@ function run() {
         }
     }
 
+    // change from work to break or from break to work and then calls newClock and setRemainingTime
+    function changePeriod() {
+        working = !working;
+        console.log("Working changed to: " + working);
+        setRemainingTime();
+        newClock();
+    }
+
+    // creates a new clock
     function newClock() {
         clock = window.setInterval(timer, 1000);
     }
 
+    // sets the remainingTime equals to initialWorkLength or initialBreakLength
     function setRemainingTime() {
+        // change remainingTime to the actual period (work or break)
         if (remainingTime === undefined || remainingTime === 0) {
             if (working) {
                 remainingTime = initialWorkLength * 60;
@@ -106,37 +117,25 @@ function run() {
             }
         }
     }
-
-    function changeWorking() {
-        working = !working;
-        console.log("Working changed to: " + working);
-        newClock();
-    }
 }
 
 // displays the clock
 function displayClock() {
-    let minutes = Math.floor(remainingTime / 60).toString(); // minutes of the actual remaining as String
-    let seconds = (remainingTime % 60).toString(); // seconds of the actual remaining as String
+    let time = [(remainingTime % 60).toString(), Math.floor(remainingTime / 60).toString()];
 
-    if (minutes.length < 2) {
-        minutes = "0" + minutes;
+    for (let i = 0; i < time.length; i++) {
+        if (time[i].length < 2) {
+            time[i] = "0" + time[i];
+        }
+        else if (time[i].length < 1) {
+            time[i] = "00";
+        }
     }
-    else if (minutes.length < 1) {
-        minutes = "00";
-    }
-    $("#minutes").html(minutes); // display the minutes
-
-    if (seconds.length < 2) {
-        seconds = "0" + seconds;
-    }
-    else if (seconds.length < 1) { // ToDo: could ev. be removed
-        seconds = "00";
-    }
-    $("#seconds").html(seconds); // display the seconds
+    $("#seconds").html(time[0]); // display the seconds*/
+    $("#minutes").html(time[1]); // display the minutes
 }
 
-function initialDisplayClock() {
+function displayInitialClock() {
     if (initialWorkLength < 10) {
         return "0" + initialWorkLength;
     }
@@ -150,7 +149,7 @@ function resetPomodoroClock() {
         working = true;
         running = false;
 
-        $("#minutes").html(initialDisplayClock());
+        $("#minutes").html(displayInitialClock());
         $("#seconds").html("00");
         $("#display-work").html(initialWorkLength);
         $("#display-break").html(initialBreakLength);
