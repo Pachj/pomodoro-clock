@@ -12,7 +12,7 @@ let clock;
 let remainingTime;
 
 $(document).ready(function () {
-    $("#minutes").html(initialWorkLength);
+    $("#minutes").html(initialDisplayClock());
     $("#display-work").html(initialWorkLength);
     $("#display-break").html(initialBreakLength);
 
@@ -130,4 +130,11 @@ function displayClock() {
         seconds = "00";
     }
     $("#seconds").html(seconds); // display the seconds
+}
+
+function initialDisplayClock() {
+    if (initialWorkLength < 10) {
+        return "0" + initialWorkLength;
+    }
+    return initialWorkLength;
 }
