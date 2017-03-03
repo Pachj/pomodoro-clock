@@ -1,15 +1,14 @@
 /**
  * Created by Henry on 01.03.17.
  */
-// ToDo: reset function
 let initialWorkLength = 1;
 let initialBreakLength = 1;
 
 let working = true;
 let running = false;
 
-let clock;
-let remainingTime;
+let clock = undefined;
+let remainingTime = undefined;
 
 $(document).ready(function () {
     $("#minutes").html(initialDisplayClock());
@@ -24,6 +23,9 @@ $(document).ready(function () {
     });
     $("#start-resume").click(function () {
         runningSwitcher();
+    });
+    $("#reset").click(function () {
+        resetPomodoroClock();
     });
 });
 
@@ -62,10 +64,12 @@ function changeBreakLength(operator) { //ToDo: (block changes if running)
 function runningSwitcher() {
     if (!running) {
         running = true;
+        $("#start-resume").html("Pause");
         run();
     }
     else {
         running = false;
+        $("#start-resume").html("Resume");
         window.clearInterval(clock);
     }
 }
@@ -93,7 +97,7 @@ function run() {
     }
 
     function setRemainingTime() {
-        if (!remainingTime || remainingTime === 0) {
+        if (remainingTime === undefined || remainingTime === 0) {
             if (working) {
                 remainingTime = initialWorkLength * 60;
             }
@@ -137,4 +141,18 @@ function initialDisplayClock() {
         return "0" + initialWorkLength;
     }
     return initialWorkLength;
+}
+
+function resetPomodoroClock() {
+    if (!running) {
+        clock = undefined;
+        remainingTime = undefined;
+        working = true;
+        running = false;
+
+        $("#minutes").html(initialDisplayClock());
+        $("#seconds").html("00");
+        $("#display-work").html(initialWorkLength);
+        $("#display-break").html(initialBreakLength);
+    }
 }

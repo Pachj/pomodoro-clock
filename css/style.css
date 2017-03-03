@@ -50,6 +50,12 @@ h4 {
     font-size: 3em;
 }
 
+#reset {
+    position: absolute;
+    top: 250px;
+    font-size: 3em;
+}
+
 #progress {
     width: 300px;
     height: 0;
