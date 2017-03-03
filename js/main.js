@@ -1,7 +1,6 @@
 /**
  * Created by Henry on 01.03.17.
  */
-//ToDo: at start display initial breakLength and workLength and the clock
     // ToDo: remainingTime ev. as global variable
     // ToDo: remainingWorkLength and remainingBreakLength could then ev. be removed
 let initialWorkLength = 10;
@@ -15,6 +14,10 @@ let running = false;
 let clock;
 
 $(document).ready(function () {
+    $("#minutes").html(initialWorkLength);
+    $("#display-work").html(initialWorkLength);
+    $("#display-break").html(initialBreakLength);
+
     $("#work-length").children().click(function () {
         changeWorkLength($(this).attr("value"));
     });
@@ -27,7 +30,7 @@ $(document).ready(function () {
 });
 
 // changes the work period length
-function changeWorkLength(operator) { //ToDo: (block change if running)
+function changeWorkLength(operator) { //ToDo: (block changes if running)
     if (operator === "+") {
         if (initialWorkLength < 60) {
             initialWorkLength++;
@@ -45,7 +48,7 @@ function changeWorkLength(operator) { //ToDo: (block change if running)
 }
 
 // changes the break period length
-function changeBreakLength(operator) { //ToDo: (block change if running)
+function changeBreakLength(operator) { //ToDo: (block changes if running)
     if (operator === "+") {
         if (initialBreakLength < 60) {
             initialBreakLength++;
