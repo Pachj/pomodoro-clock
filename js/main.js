@@ -1,9 +1,11 @@
 /**
  * Created by Henry on 01.03.17.
  */
-//ToDo: display initial breakLength and workLength and the clock
-let initialWorkLength = 25;
-let initialBreakLength = 5;
+//ToDo: at start display initial breakLength and workLength and the clock
+    // ToDo: remainingTime ev. as global variable
+    // ToDo: remainingWorkLength and remainingBreakLength could then ev. be removed
+let initialWorkLength = 10;
+let initialBreakLength = 1;
 let remainingWorkLength = initialWorkLength * 60; // in seconds
 let remainingBreakLength = initialBreakLength * 60; // in seconds
 
@@ -25,7 +27,7 @@ $(document).ready(function () {
 });
 
 // changes the work period length
-function changeWorkLength(operator) { //ToDo: add time maximum and minimum, block change if running
+function changeWorkLength(operator) { //ToDo: (block change if running)
     if (operator === "+") {
         if (initialWorkLength < 60) {
             initialWorkLength++;
@@ -43,7 +45,7 @@ function changeWorkLength(operator) { //ToDo: add time maximum and minimum, bloc
 }
 
 // changes the break period length
-function changeBreakLength(operator) { //ToDo: add time maximum and minimum, block change if running
+function changeBreakLength(operator) { //ToDo: (block change if running)
     if (operator === "+") {
         if (initialBreakLength < 60) {
             initialBreakLength++;
@@ -62,12 +64,7 @@ function changeBreakLength(operator) { //ToDo: add time maximum and minimum, blo
 function runningSwitcher() {
     if (!running) {
         running = true;
-        if (working) {
-            doWork();
-        }
-        else {
-            doBreak();
-        }
+        run();
     }
     else {
         running = false;
@@ -75,50 +72,56 @@ function runningSwitcher() {
         console.log("RemainingWorkLength: " + remainingWorkLength + ", RemainingBreakLength: " + remainingBreakLength);
     }
 }
-//ToDo: doWork and doBreak in one function when I link remaining... with working
-function doWork() {
-    clock = window.setInterval(workClock, 1000);
 
-    function workClock() {
-        if (remainingWorkLength === 0) {
-            window.clearInterval(clock);
-            working = false;
-            doBreak();
-        }
-        else {
-            remainingWorkLength -= 1;
-            console.log(remainingWorkLength);
-            displayClock();
-        }
+function getRemainingTime() {
+    if (working) {
+        return remainingWorkLength;
+    }
+    else {
+        return remainingBreakLength;
     }
 }
 
-function doBreak() {
-    clock = window.setInterval(breakClock, 1000);
+function setRemainingTime(remainingTime) {
+    if (working) {
+        remainingWorkLength = remainingTime;
+    }
+    else {
+        remainingBreakLength = remainingTime;
+    }
+}
 
-    function breakClock() {
-        if (remainingBreakLength === 0) {
+function run() {
+    newClock();
+
+    function timer() {
+        let remainingTime = getRemainingTime(); // ToDo: should not make every time a call
+
+        if (remainingTime === 0) {
             window.clearInterval(clock);
-            working = true;
-            doWork();
+            changeWorking();
         }
         else {
-            remainingBreakLength -= 1;
-            console.log(remainingBreakLength);
+            remainingTime -= 1;
+            setRemainingTime(remainingTime);
+            console.log(remainingTime);
             displayClock();
         }
+    }
+
+    function newClock() {
+        clock = window.setInterval(timer, 1000);
+    }
+
+    function changeWorking() {
+        working = !working;
+        console.log("Working changed to: " + working);
+        newClock();
     }
 }
 
 function displayClock() {
-    let remainingTime;
-
-    if (working) {
-        remainingTime = remainingWorkLength;
-    }
-    else {
-        remainingTime = remainingBreakLength;
-    }
+    let remainingTime = getRemainingTime();
 
     let minutes = Math.floor(remainingTime / 60).toString(); // minutes of the actual remaining as String
     let seconds = (remainingTime % 60).toString(); // seconds of the actual remaining as String
@@ -132,10 +135,10 @@ function displayClock() {
     $("#minutes").html(minutes); // display the minutes
 
     if (seconds.length < 2) {
-        minutes = "0" + seconds;
+        seconds = "0" + seconds;
     }
-    else if (seconds.length < 1) {
-        minutes = "00";
+    else if (seconds.length < 1) { // ToDo: could ev. be removed
+        seconds = "00";
     }
     $("#seconds").html(seconds); // display the seconds
 }
