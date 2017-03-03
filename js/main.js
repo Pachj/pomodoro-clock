@@ -30,34 +30,38 @@ $(document).ready(function () {
 });
 
 // changes the work period length and also displays it
-function changeWorkLength(operator) { //ToDo: (block changes if running)
-    if (operator === "+") {
-        if (initialWorkLength < 60) {
-            initialWorkLength++;
+function changeWorkLength(operator) {
+    if (!running) {
+        if (operator === "+") {
+            if (initialWorkLength < 60) {
+                initialWorkLength++;
+            }
         }
-    }
-    else if (operator === "-") {
-        if (initialWorkLength > 1) {
-            initialWorkLength--;
+        else if (operator === "-") {
+            if (initialWorkLength > 1) {
+                initialWorkLength--;
+            }
         }
+        displayClock();
+        $("#display-work").html(initialWorkLength);
     }
-    displayClock();
-    $("#display-work").html(initialWorkLength);
 }
 
 // changes the break period length and also displays it
-function changeBreakLength(operator) { //ToDo: (block changes if running)
-    if (operator === "+") {
-        if (initialBreakLength < 60) {
-            initialBreakLength++;
+function changeBreakLength(operator) {
+    if (!running) {
+        if (operator === "+") {
+            if (initialBreakLength < 60) {
+                initialBreakLength++;
+            }
         }
-    }
-    else if (operator === "-") {
-        if (initialBreakLength > 1) {
-            initialBreakLength--;
+        else if (operator === "-") {
+            if (initialBreakLength > 1) {
+                initialBreakLength--;
+            }
         }
+        $("#display-break").html(initialBreakLength);
     }
-    $("#display-break").html(initialBreakLength);
 }
 
 // let the timer run or pause it
@@ -82,7 +86,7 @@ function run() {
     function timer() {
 
         if (remainingTime === 0) {
-            window.clearInterval(clock);            
+            window.clearInterval(clock);
             changePeriod();
         }
         else {
@@ -131,10 +135,11 @@ function displayClock() {
             time[i] = "00";
         }
     }
-    $("#seconds").html(time[0]); // display the seconds*/
+    $("#seconds").html(time[0]); // display the seconds
     $("#minutes").html(time[1]); // display the minutes
 }
 
+// displays the clock when the site is fresh loaded
 function displayInitialClock() {
     if (initialWorkLength < 10) {
         return "0" + initialWorkLength;
@@ -142,6 +147,7 @@ function displayInitialClock() {
     return initialWorkLength;
 }
 
+// resets the whole Pomodoro Clock
 function resetPomodoroClock() {
     if (!running) {
         clock = undefined;
