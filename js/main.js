@@ -1,17 +1,15 @@
 /**
  * Created by Henry on 01.03.17.
  */
-    // ToDo: remainingTime ev. as global variable
-    // ToDo: remainingWorkLength and remainingBreakLength could then ev. be removed
-let initialWorkLength = 10;
+// ToDo: reset function
+let initialWorkLength = 1;
 let initialBreakLength = 1;
-let remainingWorkLength = initialWorkLength * 60; // in seconds
-let remainingBreakLength = initialBreakLength * 60; // in seconds
 
 let working = true;
 let running = false;
 
 let clock;
+let remainingTime;
 
 $(document).ready(function () {
     $("#minutes").html(initialWorkLength);
@@ -29,41 +27,38 @@ $(document).ready(function () {
     });
 });
 
-// changes the work period length
+// changes the work period length and also displays it
 function changeWorkLength(operator) { //ToDo: (block changes if running)
     if (operator === "+") {
         if (initialWorkLength < 60) {
             initialWorkLength++;
-            remainingWorkLength += 60;
         }
     }
     else if (operator === "-") {
         if (initialWorkLength > 1) {
             initialWorkLength--;
-            remainingWorkLength -= 60;
         }
     }
     displayClock();
     $("#display-work").html(initialWorkLength);
 }
 
-// changes the break period length
+// changes the break period length and also displays it
 function changeBreakLength(operator) { //ToDo: (block changes if running)
     if (operator === "+") {
         if (initialBreakLength < 60) {
             initialBreakLength++;
-            remainingBreakLength++;
         }
     }
     else if (operator === "-") {
         if (initialBreakLength > 1) {
             initialBreakLength--;
-            remainingBreakLength--;
         }
     }
     $("#display-break").html(initialBreakLength);
 }
 
+// let the timer run or pause it
 function runningSwitcher() {
     if (!running) {
         running = true;
@@ -72,41 +67,22 @@ function runningSwitcher() {
     else {
         running = false;
         window.clearInterval(clock);
-        console.log("RemainingWorkLength: " + remainingWorkLength + ", RemainingBreakLength: " + remainingBreakLength);
-    }
-}
-
-function getRemainingTime() {
-    if (working) {
-        return remainingWorkLength;
-    }
-    else {
-        return remainingBreakLength;
-    }
-}
-
-function setRemainingTime(remainingTime) {
-    if (working) {
-        remainingWorkLength = remainingTime;
-    }
-    else {
-        remainingBreakLength = remainingTime;
     }
 }
 
 function run() {
+    setRemainingTime();
     newClock();
 
     function timer() {
-        let remainingTime = getRemainingTime(); // ToDo: should not make every time a call
 
         if (remainingTime === 0) {
             window.clearInterval(clock);
+            setRemainingTime();
             changeWorking();
         }
         else {
             remainingTime -= 1;
-            setRemainingTime(remainingTime);
             console.log(remainingTime);
             displayClock();
         }
@@ -116,6 +92,17 @@ function run() {
         clock = window.setInterval(timer, 1000);
     }
 
+    function setRemainingTime() {
+        if (!remainingTime || remainingTime === 0) {
+            if (working) {
+                remainingTime = initialWorkLength * 60;
+            }
+            else {
+                remainingTime = initialBreakLength * 60;
+            }
+        }
+    }
+
     function changeWorking() {
         working = !working;
         console.log("Working changed to: " + working);
@@ -123,9 +110,8 @@ function run() {
     }
 }
 
+// displays the clock
 function displayClock() {
-    let remainingTime = getRemainingTime();
-
     let minutes = Math.floor(remainingTime / 60).toString(); // minutes of the actual remaining as String
     let seconds = (remainingTime % 60).toString(); // seconds of the actual remaining as String
 
