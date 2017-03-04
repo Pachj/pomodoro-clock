@@ -99,6 +99,7 @@
             // check if time elapsed
             if (remainingTime === 0) {
                 window.clearInterval(clock);
+                resetProgress();
                 changePeriod();
             }
             // continue running timer
@@ -106,6 +107,7 @@
                 remainingTime -= 1;
                 console.log(remainingTime);
                 displayClock();
+                changeProgress();
             }
         }
 
@@ -174,5 +176,36 @@
             $("#display-work").html(initialWorkLength);
             $("#display-break").html(initialBreakLength);
         }
+    }
+
+    function changeProgress() {
+        let timeStep;
+        let periodLength;
+        if (working) {
+            timeStep = (initialWorkLength * 60) / 60;
+            periodLength = initialWorkLength * 60;
+            $("#progress").css("background-color", "#09b2cb");
+        }
+        else {
+            timeStep = (initialBreakLength * 60) / 60;
+            periodLength = initialBreakLength * 60;
+            $("#progress").css("background-color", "#F21B3F");
+        }
+
+        for (let i = 1; i <= 60; i++) {
+            if (periodLength - (i * timeStep) === remainingTime) {
+                let actualCounterProgressHeight = parseInt($("#counter-progress").css("height"));
+                $("#counter-progress").css("height", (actualCounterProgressHeight -= 5) + "px");
+
+                let actualProgressHeight = parseInt($("#progress").css("height"));
+                $("#progress").css("height", (actualProgressHeight += 5) + "px");
+                break;
+            }
+        }
+    }
+
+    function resetProgress() {
+        $("#counter-progress").css("height", "300px");
+        $("#progress").css("height", "0px");
     }
 }();
