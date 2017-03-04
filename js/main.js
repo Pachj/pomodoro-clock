@@ -82,11 +82,13 @@
         if (!running) {
             running = true;
             $("#start-resume").html("Pause");
+            $("#reset").fadeOut("slow");
             run();
         }
         else {
             running = false;
             $("#start-resume").html("Resume");
+            $("#reset").fadeIn("slow");
             window.clearInterval(clock);
         }
     }
