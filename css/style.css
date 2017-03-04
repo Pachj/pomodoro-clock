@@ -17,7 +17,7 @@ body {
 
 #action-box { /* ToDo: box size responsive*/
     margin: auto;
-    flex-direction: column;    
+    flex-direction: column;
 }
 
 #progress-circle {
@@ -26,6 +26,7 @@ body {
     border-radius: 200px;
     border: 3px solid black;
     overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 }
 
 #counter-progress {
@@ -35,24 +36,25 @@ body {
 
 #clock {
     position: absolute;
-    top: 60px;         /*ToDo: change position to responsive*/
+    top: 180px;         /*ToDo: change position to responsive*/
     font-size: 5em;
     margin: 0;
 }
 
 h4 {
     display: inline-flex;
+    margin: 0;
 }
 
 #start-resume {
     position: absolute;
-    top: 180px;
+    top: 240px;
     font-size: 3em;
 }
 
 #reset {
     position: absolute;
-    top: 250px;
+    top: 290px;
     font-size: 3em;
 }
 
@@ -64,4 +66,40 @@ h4 {
 
 p {
     display: inline-flex;
+}
+
+#button-box {
+    justify-content: space-around;
+}
+
+.time-box {
+    width: 50%;
+}
+
+h5 {
+    margin: 0;
+}
+
+.buttons-title {
+    font-size: 1.5em;
+}
+
+.little-button-box {
+    align-items: center;
+}
+
+.time-button {
+    font-size: 3em;
+    font-weight: 300;
+}
+
+.time-display {
+    font-size: 3em;
+}
+
+button {
+    outline: none;
+    cursor: pointer;
+    border-style: none;
+    background-color: white;
 }
