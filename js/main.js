@@ -1,6 +1,7 @@
 /**
  * Created by Henry on 01.03.17.
  */
+//ToDo: delete console.log()'s
 !function () {
     let initialWorkLength = 1;
     let initialBreakLength = 1;
@@ -105,7 +106,6 @@
             // continue running timer
             else {
                 remainingTime -= 1;
-                console.log(remainingTime);
                 displayClock();
                 changeProgress();
             }
@@ -114,7 +114,6 @@
         // change from work to break or from break to work and then calls newClock and setRemainingTime
         function changePeriod() {
             working = !working;
-            console.log("Working changed to: " + working);
             setRemainingTime();
             newClock();
         }
@@ -181,31 +180,30 @@
     function changeProgress() {
         let timeStep;
         let periodLength;
+        let color;
         if (working) {
             timeStep = (initialWorkLength * 60) / 60;
             periodLength = initialWorkLength * 60;
-            $("#progress").css("background-color", "#09b2cb");
+            color = "9, 178, 203";
         }
         else {
             timeStep = (initialBreakLength * 60) / 60;
             periodLength = initialBreakLength * 60;
-            $("#progress").css("background-color", "#F21B3F");
+            color = "242, 27, 63";
         }
 
         for (let i = 1; i <= 60; i++) {
             if (periodLength - (i * timeStep) === remainingTime) {
-                let actualCounterProgressHeight = parseInt($("#counter-progress").css("height"));
-                $("#counter-progress").css("height", (actualCounterProgressHeight -= 5) + "px");
-
-                let actualProgressHeight = parseInt($("#progress").css("height"));
-                $("#progress").css("height", (actualProgressHeight += 5) + "px");
+                let newPrecentage = i * 1.66665;
+                $("#progress-circle").css("background", "linear-gradient(0deg, rgb(" + color + ")" + newPrecentage + "%, " +
+                    "rgb(255, 255, 255)" + newPrecentage + "%, rgb(255, 255, 255) 100%)");
                 break;
             }
         }
     }
 
     function resetProgress() {
-        $("#counter-progress").css("height", "300px");
-        $("#progress").css("height", "0px");
+        $("#progress-circle").css("background", "linear-gradient(0deg, rgb(9, 178, 203) 0%, " +
+            "rgb(255, 255, 255) 0%, rgb(255, 255, 255) 100%)");
     }
 }();

@@ -1,3 +1,5 @@
+/*ToDo: test in other Browsers*/
+
 html {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -26,17 +28,8 @@ body {
     border-radius: 200px;
     border: 3px solid black;
     overflow: hidden;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-}
-
-#counter-progress {
-    width: 300px;
-    height: 300px;
-}
-
-#progress {
-    background-color: aqua;
-    height: 0px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23); /*ToDO: Add Support for all Browser*/
+    background: linear-gradient(0deg, rgb(9, 178, 203) 0%, rgb(255, 255, 255) 0%, rgb(255, 255, 255) 100%); /*ToDO: Add Support for all Browser*/
 }
 
 #clock {
@@ -61,12 +54,6 @@ h4 {
     position: absolute;
     top: 290px;
     font-size: 3em;
-}
-
-#progress {
-    width: 300px;
-    height: 0;
-    background-color: #09b2cb;
 }
 
 p {
