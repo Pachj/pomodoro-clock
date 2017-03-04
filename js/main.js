@@ -181,16 +181,22 @@
         let timeStep;
         let periodLength;
         let color;
+        let colorAsHex;
+
         if (working) {
             timeStep = (initialWorkLength * 60) / 60;
             periodLength = initialWorkLength * 60;
             color = "9, 178, 203";
+            colorAsHex = "#09b2cb";
         }
         else {
             timeStep = (initialBreakLength * 60) / 60;
             periodLength = initialBreakLength * 60;
             color = "242, 27, 63";
+            colorAsHex = "#f21b3f";
         }
+
+        $("#circle").css("border-color", colorAsHex);
 
         for (let i = 1; i <= 60; i++) {
             if (periodLength - (i * timeStep) === remainingTime) {
