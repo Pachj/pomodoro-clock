@@ -177,6 +177,8 @@
         }
     }
 
+    // ToDo: complete refactoring
+    // ToDo: dots should change the color
     function changeProgress() {
         let timeStep;
         let periodLength;
@@ -186,7 +188,7 @@
         if (working) {
             timeStep = (initialWorkLength * 60) / 60;
             periodLength = initialWorkLength * 60;
-            color = "9, 178, 203";
+            color = "9, 178, 203"; // ToDo: change to hex (no need for rgb)
             colorAsHex = "#09b2cb";
         }
         else {
@@ -196,7 +198,7 @@
             colorAsHex = "#f21b3f";
         }
 
-        $("#circle").css("border-color", colorAsHex);
+        $("#circle, #action-box").css("border-color", colorAsHex);
 
         for (let i = 1; i <= 60; i++) {
             if (periodLength - (i * timeStep) === remainingTime) {

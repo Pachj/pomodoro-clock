@@ -11,44 +11,49 @@
     <script src="js/main.js"></script>
 </head>
 <body>
-<div class="flex-container" id="button-box">
-    <div class="time-box" id="work-length"> <!-- ToDo: delete class and id -->
-        <div class="flex-container">
-            <h5 class="buttons-title">Session Length</h5>
+<div class="" id="action-box">
+    <div class="flex-container" id="button-box">
+        <div class="time-box" id="work-length"> <!-- ToDo: delete class and id -->
+            <div class="flex-container">
+                <h5 class="buttons-title">Session Length</h5>
+            </div>
+            <div class="flex-container little-button-box" id="work-buttons">
+                <button class="time-button" id="work-minus" value="-"><i class="fa fa-minus-square"
+                                                                         aria-hidden="true"></i></button>
+                <h5 class="time-display" id="display-work">25</h5>
+                <button class="time-button" id="work-plus" value="+"><i class="fa fa-plus-square"
+                                                                        aria-hidden="true"></i></button>
+            </div>
         </div>
-        <div class="flex-container little-button-box" id="work-buttons">
-            <button class="time-button" id="work-minus" value="-"><i class="fa fa-minus-square"
-                                                                     aria-hidden="true"></i></button>
-            <h5 class="time-display" id="display-work">25</h5>
-            <button class="time-button" id="work-plus" value="+"><i class="fa fa-plus-square"
-                                                                    aria-hidden="true"></i></button>
+        <div class="time-box" id="break-length"> <!-- ToDo: delete class and id -->
+            <div class="flex-container">
+                <h5 class="buttons-title">Break Length</h5>
+            </div>
+            <div class="flex-container little-button-box" id="break-buttons">
+                <button class="time-button" id="break-minus" value="-"><i class="fa fa-minus-square"
+                                                                          aria-hidden="true"></i></button>
+                <h5 class="time-display" id="display-break">5</h5>
+                <button class="time-button" id="break-plus" value="+"><i class="fa fa-plus-square"
+                                                                         aria-hidden="true"></i></button>
+            </div>
         </div>
     </div>
-    <div class="time-box" id="break-length"> <!-- ToDo: delete class and id -->
-        <div class="flex-container">
-            <h5 class="buttons-title">Break Length</h5>
-        </div>
-        <div class="flex-container little-button-box" id="break-buttons">
-            <button class="time-button" id="break-minus" value="-"><i class="fa fa-minus-square"
-                                                                      aria-hidden="true"></i></button>
-            <h5 class="time-display" id="display-break">5</h5>
-            <button class="time-button" id="break-plus" value="+"><i class="fa fa-plus-square"
-                                                                     aria-hidden="true"></i></button>
+    <div class="flex-container" id="circle">
+        <div class="flex-container" id="progress-circle">
+            <!--ToDo: add reset button who only is visible when is paused-->
+            <div class="flex-container" id="clock">
+                <h4 id="minutes"></h4>
+                <h4>:</h4>
+                <h4 id="seconds">00</h4>
+            </div>
+            <div class="flex-container" id="progress-buttons-box">
+                <button class="progress-buttons" id="start-resume">Start</button>
+                <button class="progress-buttons" id="reset">Reset</button>
+            </div>
         </div>
     </div>
-</div>
-<div class="flex-container" id="circle">
-    <div class="flex-container" id="progress-circle">
-        <!--ToDo: add reset button who only is visible when is paused-->
-        <div class="flex-container" id="clock">
-            <h4 id="minutes"></h4>
-            <h4>:</h4>
-            <h4 id="seconds">00</h4>
-        </div>
-        <div class="flex-container" id="progress-buttons-box">
-            <button class="progress-buttons" id="start-resume">Start</button>
-            <button class="progress-buttons" id="reset">Reset</button>
-        </div>
+    <div class="flex-container" id="footer">
+        <footer>by Henry Joerg</footer>
     </div>
 </div>
 </body>
