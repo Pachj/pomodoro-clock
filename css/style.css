@@ -1,5 +1,18 @@
 /*ToDo: test in other Browsers
     ToDo: shadow and gradient add support for all Browser*/
+
+@media (min-width: 350px) {
+    #action-box {
+        width: 340px;
+        height: 470px;
+        margin: 6% auto;
+        border-radius: 100px;
+        border: 3px solid #09b2cb;
+        background-color: white;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23); /*ToDO: Add Support for all Browser*/
+    }
+}
+
 html {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -11,6 +24,7 @@ body {
     font-size: 10px;
     text-shadow: 0 3px 3px rgba(0, 0, 0, 0.23);
     color: black;
+    margin: 0;
 }
 
 .flex-container {
@@ -36,13 +50,6 @@ h5 {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 340px;
-    height: 470px;
-    margin: 6% auto;
-    border-radius: 100px;
-    border: 3px solid #09b2cb;
-    background-color: white;
-
 }
 
 #button-box {
