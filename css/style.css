@@ -36,12 +36,13 @@ h5 {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 380px;
+    width: 340px;
     height: 470px;
     margin: 6% auto;
     border-radius: 100px;
     border: 3px solid #09b2cb;
     background-color: white;
+
 }
 
 #button-box {

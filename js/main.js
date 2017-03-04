@@ -1,7 +1,7 @@
 /**
  * Created by Henry on 01.03.17.
  */
-//ToDo: delete console.log()'s
+//ToDo: box width for mobile devices
 !function () {
     let initialWorkLength = 1;
     let initialBreakLength = 1;
