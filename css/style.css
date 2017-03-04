@@ -32,44 +32,19 @@ body {
     background: linear-gradient(0deg, rgb(9, 178, 203) 0%, rgb(255, 255, 255) 0%, rgb(255, 255, 255) 100%); /*ToDO: Add Support for all Browser*/
 }
 
-#clock {
-    position: absolute;
-    top: 180px;         /*ToDo: change position to responsive*/
-    font-size: 5em;
-    margin: 0;
-}
-
-h4 {
-    display: inline-flex;
-    margin: 0;
-}
-
-#start-resume {
-    position: absolute;
-    top: 240px;
-    font-size: 3em;
-}
-
-#reset {
-    position: absolute;
-    top: 290px;
-    font-size: 3em;
-}
-
-p {
-    display: inline-flex;
-}
-
-#button-box {
-    justify-content: space-around;
-}
-
-.time-box {
-    width: 50%;
+button {
+    outline: none;
+    cursor: pointer;
+    border-style: none;
+    background: none;
 }
 
 h5 {
     margin: 0;
+}
+
+#button-box {
+    justify-content: space-around;
 }
 
 .buttons-title {
@@ -80,18 +55,17 @@ h5 {
     align-items: center;
 }
 
-.time-button {
-    font-size: 3em;
-    font-weight: 300;
+.time-button { /*ToDo: change color*/
+    font-size: 1.5em;
 }
 
 .time-display {
-    font-size: 3em;
+    font-size: 2em;
 }
 
-button {
-    outline: none;
-    cursor: pointer;
-    border-style: none;
-    background: none;
+
+
+h4 {
+    display: inline-flex;
+    margin: 0;
 }
