@@ -1,10 +1,9 @@
 /**
  * Created by Henry on 01.03.17.
  */
-//ToDo: box width for mobile devices
 !function () {
-    let initialWorkLength = 1;
-    let initialBreakLength = 1;
+    let initialWorkLength = 25;
+    let initialBreakLength = 5;
 
     let working = true;
     let running = false;
@@ -79,6 +78,7 @@
 
 // let the timer run or pause it
     function runningSwitcher() {
+        // check if the clock not is running
         if (!running) {
             running = true;
             $("#start-resume").html("Pause");
@@ -141,12 +141,15 @@
 
 // displays the clock
     function displayClock() {
+        // seconds and minutes as String to fill into the clock
         let time = [(remainingTime % 60).toString(), Math.floor(remainingTime / 60).toString()];
 
         for (let i = 0; i < time.length; i++) {
+            // check if the time only has 1 digit
             if (time[i].length < 2) {
                 time[i] = "0" + time[i];
             }
+            // check if the time has 0 digits
             else if (time[i].length < 1) {
                 time[i] = "00";
             }
@@ -176,32 +179,32 @@
             $("#seconds").html("00");
             $("#display-work").html(initialWorkLength);
             $("#display-break").html(initialBreakLength);
+            $("#start-resume").html("Start");
+
+            resetProgress();
         }
     }
 
-    // ToDo: complete refactoring
-    // ToDo: dots should change the color
     function changeProgress() {
-        let timeStep;
-        let periodLength;
-        let color;
-        let colorAsHex;
+        let timeStep; // amount of seconds who are needed to increase the progress
+        let periodLength; // period length in seconds
+        let color; // the actual color as rgb value
 
         if (working) {
             timeStep = (initialWorkLength * 60) / 60;
             periodLength = initialWorkLength * 60;
-            color = "9, 178, 203"; // ToDo: change to hex (no need for rgb)
-            colorAsHex = "#09b2cb";
+            color = "9, 178, 203";
         }
         else {
             timeStep = (initialBreakLength * 60) / 60;
             periodLength = initialBreakLength * 60;
             color = "242, 27, 63";
-            colorAsHex = "#f21b3f";
         }
 
-        $("#circle, #action-box").css("border-color", colorAsHex);
+        // change the border color
+        $("#circle, #action-box").css("border-color", "rgb(" + color + ")");
 
+        // change the linear gradient
         for (let i = 1; i <= 60; i++) {
             if (periodLength - (i * timeStep) === remainingTime) {
                 let newPrecentage = i * 1.66665;
@@ -212,6 +215,7 @@
         }
     }
 
+    // resets the progress
     function resetProgress() {
         $("#progress-circle").css("background", "linear-gradient(0deg, rgb(9, 178, 203) 0%, " +
             "rgb(255, 255, 255) 0%, rgb(255, 255, 255) 100%)");
