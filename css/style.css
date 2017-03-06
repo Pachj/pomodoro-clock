@@ -1,6 +1,3 @@
-/*ToDo: test in other Browsers
-    ToDo: shadow and gradient add support for all Browser*/
-
 @media (min-width: 350px) {
     #action-box {
         width: 340px;
@@ -9,7 +6,9 @@
         border-radius: 100px;
         border: 3px solid #09b2cb;
         background-color: white;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23); /*ToDO: Add Support for all Browser*/
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+        -moz-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+        -webkit-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
     }
 }
 
@@ -67,7 +66,7 @@ h5 {
     margin-top: 1em;
 }
 
-.time-button { /*ToDo: change color*/
+.time-button {
     font-size: 1.5em;
 }
 
@@ -83,16 +82,21 @@ h5 {
     border-radius: 200px;
     border: 3px solid #09b2cb;
     overflow: hidden;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23); /*ToDO: Add Support for all Browser*/
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    -moz-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    -webkit-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
     justify-content: center;
     align-items: center;
 }
 
-#progress-circle { /*ToDo: add padding*/
+#progress-circle {
     height: 290px;
     width: 290px;
     border-radius: 200px;
-    background: linear-gradient(0deg, rgb(9, 178, 203) 0%, rgb(255, 255, 255) 0%, rgb(255, 255, 255) 100%); /*ToDO: Add Support for all Browser*/
+    background: linear-gradient(0deg, rgb(9, 178, 203) 0%, rgb(255, 255, 255) 0%, rgb(255, 255, 255) 100%);
+    background: -webkit-linear-gradient(0deg, rgb(9, 178, 203) 0%, rgb(255, 255, 255) 0%, rgb(255, 255, 255) 100%);
+    background: -o-linear-gradient(0deg, rgb(9, 178, 203) 0%, rgb(255, 255, 255) 0%, rgb(255, 255, 255) 100%);
+    background: -moz-linear-gradient(0deg, rgb(9, 178, 203) 0%, rgb(255, 255, 255) 0%, rgb(255, 255, 255) 100%);
 }
 
 #clock {
